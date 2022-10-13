@@ -1,36 +1,27 @@
-import { User, List, ShoppingCartSimple } from 'phosphor-react'
-import { useContext, useState } from 'react'
-import classNames from 'classnames'
-import { Sidebar } from './Sidebar'
-import { LoginModal } from './LoginModal'
+import { User, List, ShoppingCartSimple, X } from 'phosphor-react'
+import { useState } from 'react'
+import { Sidebar } from '../Sidebars/Sidebar'
+import { LoginModal } from '../Modals/LoginModal'
 import Link from 'next/link'
-import { CartModal } from './CartModal'
-import { asideContext } from '../providers/asideContext'
+import { CartModal } from '../Modals/CartModal'
+import Modal from 'react-modal'
 
 export const Header = () => {
 
-    const { active, setActive } = useContext(asideContext)
     const [sidebar, setSidebar] = useState(false)
     const [loginModal, setLogin] = useState(false)
     const [cartModal, setCart] = useState(false)
 
-    const handleSidebar = (value: boolean) => {
-        if (value) {
-            if (!active) {
-                setActive(value)
-                setSidebar(value)
-            }
-        } else {
-            setActive(value)
-            setSidebar(value)
-        }
-    }
     return (
         <>
-            {sidebar ? <Sidebar handleSidebar={handleSidebar} /> : <></>}
-            <header className={classNames("flex flex-col bg-gray-800 w-full text-white", {
-                'opacity-50': active
-            })}>
+            <Modal
+                isOpen={sidebar}
+                ariaHideApp={false}
+                className="bg-white shadow-2xl fixed left-0 z-50 flex px-8 py-12 flex-col z-50 gap-12 w-8/12 h-screen animate-show-sidebar"
+            >
+                <Sidebar handleSidebar={setSidebar} />
+            </Modal>
+            <header className="flex flex-col bg-gray-800 w-full text-white">
 
                 <div className={"w-full flex items-center justify-center py-1 bg-gray-500"}>
                     <span className="uppercase font-bold text-center text-xs md:text-md">
@@ -39,7 +30,7 @@ export const Header = () => {
                 </div>
                 <div className="px-4 md:px-28 py-4 flex justify-between items-center gap-8 ">
                     <nav className="flex items-center gap-4">
-                        <List size={32} color="#e8e8e8" className='mr-4 cursor-pointer md:hidden' onClick={() => handleSidebar(true)} />
+                        <List size={32} color="#e8e8e8" className='mr-4 cursor-pointer md:hidden' onClick={() => setSidebar(true)} />
                         <Link href={'/'} passHref>
                             <a className="font-bold hover:text-gray-400 transition-colors uppercase text-2xl tracking-wider mr-12">GlassOn</a>
                         </Link>

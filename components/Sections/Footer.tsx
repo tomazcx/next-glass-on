@@ -1,16 +1,8 @@
 import { FacebookLogo, InstagramLogo, EnvelopeSimple, Phone, TwitterLogo } from 'phosphor-react'
-import { useContext } from 'react'
-import classNames from 'classnames'
-import { asideContext } from '../providers/asideContext'
 import Link from 'next/link'
 export const Footer = () => {
-
-    const {active} = useContext(asideContext)
-
     return (
-        <footer className={classNames("bg-gray-800 md:px-16 pt-12 pb-16 flex gap-16 flex-col items-center text-white text-[14px]", {
-            'opacity-50': active
-        })}>
+        <footer className="bg-gray-800 md:px-16 pt-12 pb-16 flex gap-16 flex-col items-center text-white text-[14px]">
             <div className="flex flex-col items-center md:grid md:grid-cols-3 gap-12 w-full">
                 <div className="flex flex-col gap-8">
                     <div className="flex flex-col gap-4 text-center md:text-left">
