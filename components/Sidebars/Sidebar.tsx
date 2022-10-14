@@ -13,7 +13,6 @@ export const Sidebar = ({ handleSidebar }: SidebarInterface) => {
                 <Link passHref href={'/products'}><a href="" onClick={() => handleSidebar(false)}>Produtos</a></Link>
                 <Link passHref href={'/questions'}><a href="" onClick={() => handleSidebar(false)}>Perguntas Frequentes</a></Link>
                 <Link passHref href={'/register'}><a href="" onClick={() => handleSidebar(false)}>Registrar-se</a></Link>
-
             </nav>
         </>
     )

@@ -16,7 +16,6 @@ export const CardProduct = (props: CardInterface) => {
                     <span className="hover:text-gray-600 cursor-pointer transition-colors">Comprar</span>
                 </div>
             </a>
-
         </Link>
     )
 }

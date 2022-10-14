@@ -17,11 +17,11 @@ export const Header = () => {
             <Modal
                 isOpen={sidebar}
                 ariaHideApp={false}
-                className="bg-white shadow-2xl fixed left-0 z-50 flex px-8 py-12 flex-col z-50 gap-12 w-8/12 h-screen animate-show-sidebar"
+                className="bg-white shadow-2xl fixed left-0 z-100 flex px-8 py-12 flex-col z-50 gap-12 w-8/12 h-screen animate-show-sidebar"
             >
                 <Sidebar handleSidebar={setSidebar} />
             </Modal>
-            <header className="flex flex-col bg-gray-800 w-full text-white">
+            <header className="flex flex-col bg-gray-800 w-full text-white relative">
 
                 <div className={"w-full flex items-center justify-center py-1 bg-gray-500"}>
                     <span className="uppercase font-bold text-center text-xs md:text-md">
@@ -60,7 +60,8 @@ export const Header = () => {
                                 setLogin(false)
                                 setCart(prevState => !prevState)
                             }} />
-                        {cartModal ? <CartModal /> : <></>}
+                        {cartModal ? <CartModal closeFun={setCart} /> : <></>}
+
 
                         <User size={32} color="#e8e8e8" className='cursor-pointer'
                             onClick={() => {

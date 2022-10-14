@@ -4,7 +4,7 @@ import templateMain2 from '../assets/carousel/bg-img2.jpg'
 import templateMain3 from '../assets/carousel/bg-img3.jpg'
 import glass from '../assets/products/glass1.jpg'
 import sunglass from '../assets/products/sunglass1.jpg'
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { CarouselImg } from '../components/Home/CarouselImg';
@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <main className='w-full'>
+      <main className='w-full z-0'>
         <Swiper
           spaceBetween={0}
           slidesPerView={1}
