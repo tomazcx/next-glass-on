@@ -7,7 +7,7 @@ interface ChildrenInterface {
 
 export const Layout = ({ children }: ChildrenInterface) => {
     return (
-        <div className=' flex flex-col justify-between'>
+        <div className='min-h-screen flex flex-col justify-between'>
             <Header />
             {children}
             <Footer />

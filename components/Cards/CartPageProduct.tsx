@@ -1,9 +1,10 @@
 import { Minus, Plus } from "phosphor-react";
 import { useContext } from "react";
 import { CartContext } from "../../providers/cartContext";
+import Image, { StaticImageData } from "next/image";
 
 interface ProductInterface {
-    image: string;
+    image: string | StaticImageData;
 }
 
 
@@ -27,7 +28,7 @@ export const CartPageProduct = (props: ProductInterface) => {
 
     return (
         <div className="grid grid-cols-1 items-start md:grid-cols-3 gap-4 p-8 border w-full text-xs xl:text-sm">
-            <Image src={props.image} alt="Product image" width={150} className='mx-auto md:mx-0' />
+            <Image src={props.image} alt="Product image" className='mx-auto md:mx-0' />
             <div className="flex flex-col gap-4">
                 <strong className="text-lg">Clubmaster Optics</strong>
                 <span>RB3548NL 001 54-21</span>

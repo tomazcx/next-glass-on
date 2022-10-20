@@ -23,7 +23,7 @@ export const Input = (props: InputProps) => {
 
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full relative z-0">
             <span
                 className={classNames('relative z-0 transition-all', {
                     'top-5' : !focus,
