@@ -1,12 +1,28 @@
-import { useState } from "react"
-import { ToastContainer } from "react-toastify"
+import { useState, FormEvent } from "react"
+import { ToastContainer, toast } from "react-toastify"
 import { Input } from "../../../../components/Admin/Form/Input"
 import { TitleForm } from "../../../../components/Admin/Form/TitleForm"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import 'react-toastify/dist/ReactToastify.css';
+import { REGISTER_FORMAT } from "../../../../graphql/mutations/registerFormat"
+import { useMutation } from "@apollo/client"
 
 const RegisterFormats = () => {
     const [text, setText] = useState("")
+    const [registerFormat] = useMutation(REGISTER_FORMAT, {
+        onCompleted: () => {
+            toast('Formato registrada com sucesso!')
+        }
+    })
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault()
+        registerFormat({
+            variables: {
+                format: text
+            }
+        })
+    }
 
     const handleChange = (e: any) => {
         setText(e.target.value)
@@ -19,7 +35,7 @@ const RegisterFormats = () => {
                 <h1 className='text-lg'>Registrar Formato</h1>
                 <hr />
 
-                <form className='grid grid-cols-12 gap-8' >
+                <form onSubmit={(e) => handleSubmit(e)} className='grid grid-cols-12 gap-8' >
                     <div className='col-span-5'>
                         <TitleForm text='Formato' />
                     </div>
