@@ -1,16 +1,14 @@
-import { Aside } from "../../../components/Admin/Sections/Aside"
-import { Header } from "../../../components/Admin/Sections/Header"
+import { LayoutDashboard } from "../../../components/Admin/Sections/LayoutDashboard"
 
 
 const HomeDashboard = () => {
     return(
-        <div className="flex-col h-screen flex">
-          <Header />
-          <main className='grid grid-cols-5 flex-1'>
-            <Aside />
-            <h1>Bem vindo ao seu dashboard</h1>
-          </main>
-        </div>
+        <LayoutDashboard>
+            <div className="flex flex-col items-center gap-4 mt-6 col-span-4">
+                <h1 className="text-center text-2xl mt-6">Bem vindo ao seu dashboard Glass On</h1>
+                <h2 className="text-center text-lg">Faça o cadastro de produtos e visualize todos os seus detalhes.</h2>
+            </div>
+        </LayoutDashboard>
     )
 }
 
