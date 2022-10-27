@@ -24,7 +24,7 @@ const Products = () => {
       >
         <SidebarProductsMobile handleSidebar={setSidebar} />
       </Modal>
-      <main className="md:grid md:grid-cols-5 flex flex-col items-center h-full w-full md:gap-8">
+      <main className="md:grid md:grid-cols-5 flex flex-col items-center h-full w-full md:gap-8 mt-20">
         <SidebarProducts />
         <div className="col-span-4 h-full">
           <div className="flex flex-col sm:flex-row items-center md:justify-end gap-8 px-6 mt-12">

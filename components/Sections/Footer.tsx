@@ -31,10 +31,10 @@ export const Footer = () => {
                 <div className="flex flex-col items-center text-center md:text-left md:items-start gap-4">
                     <span className="text-gray-400">Dúvidas</span>
                     <div className="flex flex-col gap-2">
-                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors">Termos de uso</Link>
-                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors">Trocas e devoluções</Link>
-                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors">Termos de serviço</Link>
-                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors">Política de reembolso</Link>
+                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors" passHref ><a>Termos de uso</a></Link>
+                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors" passHref><a>Trocas e devoluções</a></Link>
+                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors" passHref><a>Termos de serviço</a></Link>
+                        <Link href={'/questions'} className="hover:text-gray-400 cursor-pointer transition-colors" passHref><a>Política de reembolso</a></Link>
                     </div>
                 </div>
                 <div className="gap-12 lg:hidden flex ">
@@ -45,7 +45,7 @@ export const Footer = () => {
                     <TwitterLogo size={25} color="#e8e8e8" />
                 </div>
             </div>
-            <span className="text-center">Powered by <a href="https://github.com/tomazcx" target="_blank" className="hover:border-b">tomazcx</a> </span>
+            <span className="text-center">Powered by <a href="https://github.com/tomazcx" target="_blank" rel='nofollow, external, noopener, noreferrer' className="hover:border-b">tomazcx</a> </span>
 
         </ footer>
 

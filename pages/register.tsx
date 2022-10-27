@@ -4,7 +4,7 @@ import { Layout } from "../components/Sections/Layout"
 const Register = () => {
   return (
     <Layout>
-      <main className="flex flex-col items-center w-full my-12">
+      <main className="flex flex-col items-center w-full my-12 mt-28">
         <form action="" className="flex flex-col gap-7 w-11/12 max-w-[600px]">
           <h1 className="text-3xl">Cadastre sua conta</h1>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio officia corrupti enim quam nesciunt. Ut labore magni quas repellendus at veritatis ab in placeat aut, eius voluptatum? Dicta, id rerum!</p>

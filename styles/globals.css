@@ -11,5 +11,5 @@ body {
   overflow-x: hidden;
 }
 
-.swiper-button-next { color: white; }
-.swiper-button-prev { color: white; }
+.swiper-button-next { color: white !important; }
+.swiper-button-prev { color: white !important; }

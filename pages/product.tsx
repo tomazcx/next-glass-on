@@ -33,7 +33,7 @@ const Product = () => {
 
   return (
     <Layout>
-      <main className="flex flex-col my-12 w-11/12 max-w-[1200px] mx-auto">
+      <main className="flex flex-col my-12 w-11/12 max-w-[1200px] mx-auto mt-28">
         <section className="grid grid-cols-1 md:grid-cols-2 gap-12 py-8 border-b border-gray-400">
           <div className="flex items-center flex-col">
             <Image src={glass} alt="Product image" className="rounded-2xl" />

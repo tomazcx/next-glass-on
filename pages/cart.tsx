@@ -14,7 +14,7 @@ const Cart = () => {
     return (
         <Layout>
             
-            <main className="flex flex-col my-12 w-full ">
+            <main className="flex flex-col my-12 w-full mt-28">
                 <div className="flex flex-col h-full w-11/12 gap-8 max-w-[1200px] mx-auto ">
                     <div className="flex items-center gap-2 ">
                         <Link href={'/'} passHref><a className="border-r border-black pr-2 hover:text-gray-500 transition-colors">Voltar</a></Link>

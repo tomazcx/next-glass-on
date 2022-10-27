@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <main className='w-full z-0'>
+      <main className='w-full z-0 mt-20'>
         <Swiper
           spaceBetween={0}
           slidesPerView={1}

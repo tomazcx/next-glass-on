@@ -42,7 +42,7 @@ const Payment = () => {
       >
         <SidebarPayment handleSidebar={setSidebar} />
       </Modal>
-      <main className="flex flex-col items-center justify-between flex-1 w-full gap-12 mb-12">
+      <main className="flex flex-col items-center justify-between flex-1 w-full gap-12 mb-12 mt-20">
         <div className="bg-gray-100 py-1.5 text-sm flex items-center justify-center w-full gap-6">
           <span className={classNames('', { 'border-b border-black': form })}>1. ENTREGA</span>
           <span className={classNames('', { 'border-b border-black': !form })}>2. PAGAMENTO</span>
