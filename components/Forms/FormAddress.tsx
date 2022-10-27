@@ -31,7 +31,7 @@ export const FormAdress = (props: FormInterface) => {
             </div>
             <div className="flex flex-col">
                 <Input text="CEP*" type="text" funChange={props.setCEP} funFetch={props.fetchData} />
-                <span className="text-gray-500">Esqueceu o cep? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target={'_blank'} className="hover:text-gray-600 transition-colors border-gray-600 border-b">Calcule-o</a> </span>
+                <span className="text-gray-500">Esqueceu o cep? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target={'_blank'} rel='nofollow, external, noopener, noreferrer' className="hover:text-gray-600 transition-colors border-gray-600 border-b">Calcule-o</a> </span>
                 {props.error ? <span className="text-red-400 mt-2">Insira um CEP válido </span> : <></>}
             </div>
             <Input text="Bairro*" type="text" value={props.data?.bairro ?? ''} />
