@@ -10,6 +10,7 @@ import { COLORS_QUERY } from "../../../../graphql/queries/getColors"
 import { FORMATS_QUERY } from "../../../../graphql/queries/getFormats"
 import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials"
 import 'react-toastify/dist/ReactToastify.css';
+import { PRODUCTS_QUERY } from "../../../../graphql/queries/getProducts"
 
 
 const RegisterProducts = () => {
@@ -23,7 +24,7 @@ const RegisterProducts = () => {
         onCompleted: () => {
             toast("Produto cadastrado com sucesso!")
         },
-        // refetchQueries: [{query: PRODUCT_QUERY}]
+        refetchQueries: [{query: PRODUCTS_QUERY}]
     })
 
     const handleRegister = (data : any) =>{
@@ -44,15 +45,15 @@ const RegisterProducts = () => {
 
     return (
         <LayoutDashboard>
-            <section className="flex flex-col col-span-4 gap-6 w-full p-8">
+            <section className="flex flex-col col-span-4 gap-6 w-full md:p-8 px-4 py-2">
                 <ToastContainer autoClose={500} pauseOnHover={false} hideProgressBar={true} />
-                <h1 className="text-xl">Registrar produto</h1>
+                <h1 className="text-lg md:text-xl">Registrar produto</h1>
                 <hr />
                 <form onSubmit={handleSubmit((data) => handleRegister(data))} className="grid grid-cols-12 gap-8" encType="multipart/form-data">
-                    <div className='col-span-5'>
+                    <div className='col-span-12 md:col-span-5'>
                         <TitleForm text='Informações do produto' />
                     </div>
-                    <div className='col-span-7 grid grid-cols-12 gap-6'>
+                    <div className='col-span-12 md:col-span-7 grid grid-cols-12 gap-6'>
                         <Input register={register} text='Título' id='name' type='text' />
                         <Input register={register} text='Preço' id='price' type='number' />
                         <Input register={register} text='Parcelas' id='parcels' type='number' />
@@ -60,10 +61,10 @@ const RegisterProducts = () => {
                     </div>
                     <hr className='col-span-12' />
 
-                    <div className='col-span-5'>
+                    <div className='col-span-12 md:col-span-5'>
                         <TitleForm text='Opções de armação' />
                     </div>
-                    <div className='col-span-7 grid grid-cols-12 gap-6'>
+                    <div className='col-span-12 md:col-span-7 grid grid-cols-12 gap-6'>
                         <Select register={register} text='Cor da armação' id='color' options={colors?.data?.colors} />
                         <Select register={register}  text='Formato da armação' id='format' options={formats?.data?.formats} />
                         <Select register={register}  text='Material da armação' id='material' options={materials?.data?.materials} />
@@ -71,15 +72,15 @@ const RegisterProducts = () => {
 
                     <hr className='col-span-12' />
 
-                    <div className='col-span-5'>
+                    <div className='col-span-12 md:col-span-5'>
                         <TitleForm text='Informações de exibição' />
                     </div>
-                    <div className='col-span-7 grid grid-cols-12 gap-6'>
+                    <div className='col-span-12 md:col-span-7 grid grid-cols-12 gap-6'>
                         <div className="flex-col flex gap-3 col-span-12">
                             <label htmlFor="img">Imagem:</label>
                             <input {...register('img')} type="file" name="img" id="img" className="rounded w-10/12 max-w-[500px]" />
                         </div>
-                        <div className="flex gap-3 items-center col-span-6">
+                        <div className="flex gap-3 items-center col-span-12 md:col-span-6">
                             <label htmlFor="type">Possui lentes solares?:</label>
                             <input {...register('type')} type="checkbox" name="type" />
                         </div>
@@ -88,18 +89,18 @@ const RegisterProducts = () => {
 
                     <hr className='col-span-12' />
 
-                    <div className='col-span-5'>
+                    <div className='col-span-12 md:col-span-5'>
                         <TitleForm text='Descrição' />
                     </div>
-                    <div className='col-span-7 grid grid-cols-12'>
-                        <div className="flex flex-col gap-3 col-span-12">
+                    <div className='col-span-12 md:col-span-7 grid grid-cols-12'>
+                        <div className="flex flex-col gap-3 col-span-12 pr-1">
                             <label htmlFor="desc">Detalhes:</label>
-                            <textarea {...register('desc')} name="desc" id="desc" cols={40} rows={10} className="bg-gray-200 rounded w-10/12 max-w-[500px] p-2"></textarea>
+                            <textarea {...register('desc')} name="desc" id="desc" cols={40} rows={10} className="bg-gray-200 rounded w-full p-2"></textarea>
                         </div>
                     </div>
 
                     <hr className='col-span-12' />
-                    <button type="submit" className="rounded-md bg-gray-800 text-white hover:bg-black transition-colors col-span-3 col-start-9 py-2">Cadastrar</button>
+                    <button type="submit" className="rounded-md bg-gray-800 text-white hover:bg-black transition-colors col-span-12 md:col-span-3 md:col-start-9 py-2">Cadastrar</button>
                 </form>
             </section>
         </LayoutDashboard>

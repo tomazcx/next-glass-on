@@ -30,7 +30,7 @@ const RegisterFormats = () => {
 
     return (
         <LayoutDashboard>
-            <main className="flex flex-col col-span-4 gap-6 w-full p-8">
+            <main className="flex flex-col col-span-4 gap-6 w-full md:p-8 px-4 py-2">
                 <ToastContainer autoClose={500} pauseOnHover={false} hideProgressBar={true} />
                 <h1 className='text-lg'>Registrar Formato</h1>
                 <hr />
@@ -44,7 +44,7 @@ const RegisterFormats = () => {
                     </div>
                     <hr className='col-span-12' />
 
-                    <button type='submit' className="rounded-md bg-gray-800 text-white hover:bg-black transition-colors col-span-3 col-start-9 py-2">Cadastrar</button>
+                    <button type='submit' className="rounded-md bg-gray-800 text-white hover:bg-black transition-colors col-span-12 md:col-span-3 md:col-start-9 py-2">Cadastrar</button>
                 </form>
             </main>
         </LayoutDashboard>

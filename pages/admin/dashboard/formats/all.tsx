@@ -31,7 +31,7 @@ const AllFormats = () => {
              <Modal
                 isOpen={modal}
                 ariaHideApp={false}
-                className="bg-gray-100 border-none absolute top-[250px] left-1/2 transform p-4 -translate-x-1/2 flex flex-col gap-4"
+                className="bg-gray-100 border-none w-10/12 max-w-[400px] absolute top-[150px] lg:top-[250px] left-1/2 transform p-4 -translate-x-1/2 flex flex-col gap-4"
             >
                 <span className="text-xl">Deseja mesmo deletar o formato?</span>
                 <hr />
@@ -42,8 +42,8 @@ const AllFormats = () => {
                 </div>
             </Modal>
             <section className='flex flex-col p-8 gap-6 col-span-4 w-full'>
-                <div className='flex items-center justify-between'>
-                    <h1 className='text-xl'>Formatos de armação cadastrados</h1>
+            <div className='flex md:items-center gap-4 justify-between flex-col md:flex-row'>
+                    <h1 className='text-lg md:text-l '>Formatos de armação cadastrados</h1>
 
                     <InputSearch onChange={setText} />
                 </div>

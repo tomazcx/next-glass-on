@@ -1,6 +1,12 @@
-import { Bag, Eyeglasses, Palette, WaveSquare } from "phosphor-react";
-import { ReactNode, useContext } from "react";
+import Link from "next/link";
+import { Bag, Eyeglasses, Palette, WaveSquare, X } from "phosphor-react";
+import { ReactNode } from "react";
 import { Collapse } from "../Aside/Collapse";
+import { CollapseMobile } from "../Aside/CollapseMobile";
+
+interface SidebarInterface{
+    handleSidebar (value:boolean):void;
+}
 
 interface ItemInterface {
     title: string;
@@ -17,7 +23,7 @@ interface ListInterface {
 }
 
 
-export const Aside = () => {
+export const SidebarDashboard = ({handleSidebar} : SidebarInterface) => {
 
     const lists: ListInterface[] = [
         {
@@ -82,12 +88,14 @@ export const Aside = () => {
         }
     ]
 
-
-    return (
-        <aside className="col-span-1 h-full bg-gray-100 hidden lg:block">
+    return(
+        <>
+            <X size={32} color="#000000" onClick={() => handleSidebar(false)} />
+            <nav className='flex flex-col gap-6 font-bold'>
             {lists.map(list => {
-                return <Collapse key={list.id} icon={list.icon} name={list.name} items={list.items} />
+                return <CollapseMobile key={list.id} icon={list.icon} name={list.name} items={list.items} />
             })}
-        </aside>
+            </nav>
+        </>
     )
 }
