@@ -5,7 +5,8 @@ import { TitleForm } from "../../../../components/Admin/Form/TitleForm"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from "@apollo/client"
-import { REGISTER_COLOR } from "../../../../graphql/mutations/registerColor"
+import { REGISTER_COLOR } from "../../../../graphql/mutations/create/registerColor"
+import { COLORS_QUERY } from "../../../../graphql/queries/getColors"
 
 
 const RegisterColors = () => {
@@ -14,7 +15,8 @@ const RegisterColors = () => {
     const [registerColor] = useMutation(REGISTER_COLOR, {
         onCompleted: () => {
             toast('Cor registrada com sucesso!')
-        }
+        },
+        refetchQueries: [{ query: COLORS_QUERY }]
     })
 
     const handleSubmit = (e: FormEvent) => {

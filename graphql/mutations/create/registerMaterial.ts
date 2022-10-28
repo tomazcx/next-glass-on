@@ -2,10 +2,10 @@ import gql from "graphql-tag";
 
 export const REGISTER_MATERIAL = gql`
 mutation registerMaterial($material: String!) {
-    createMaterial(data: {material: $material}) {
+    createMaterial(data: {name: $material}) {
       id
     }
-    publishMaterial(where: {material: $material}) {
+    publishMaterial(where: {name: $material}) {
       id
     }
   }

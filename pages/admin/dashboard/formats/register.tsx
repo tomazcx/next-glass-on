@@ -4,7 +4,7 @@ import { Input } from "../../../../components/Admin/Form/Input"
 import { TitleForm } from "../../../../components/Admin/Form/TitleForm"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import 'react-toastify/dist/ReactToastify.css';
-import { REGISTER_FORMAT } from "../../../../graphql/mutations/registerFormat"
+import { REGISTER_FORMAT } from "../../../../graphql/mutations/create/registerFormat"
 import { useMutation } from "@apollo/client"
 
 const RegisterFormats = () => {

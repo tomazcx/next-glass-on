@@ -5,15 +5,16 @@ import { TitleForm } from "../../../../components/Admin/Form/TitleForm"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from "@apollo/client"
-import { REGISTER_FORMAT } from "../../../../graphql/mutations/registerFormat"
-import { REGISTER_MATERIAL } from "../../../../graphql/mutations/registerMaterial"
+import { REGISTER_MATERIAL } from "../../../../graphql/mutations/create/registerMaterial"
+import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials"
 
 const RegisterMaterials = () => {
     const [text, setText] = useState("")
     const [registerFormat] = useMutation(REGISTER_MATERIAL, {
         onCompleted: () => {
             toast("Material cadastrado com sucesso!")
-        }
+        },
+        refetchQueries: [{query: MATERIALS_QUERY}]
     })
 
     const handleSubmit = (e: FormEvent) => {
