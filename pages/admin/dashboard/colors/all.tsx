@@ -3,7 +3,7 @@ import { useState } from "react"
 import { InputSearch } from "../../../../components/Admin/Form/InputSearch"
 import { ItemCategory } from "../../../../components/Admin/Items/Category"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
-import { COLORS_QUERY } from "../../../../graphql/queries/getColors"
+import { COLORS_QUERY } from "../../../../graphql/queries/categories/getColors"
 import Modal from 'react-modal'
 import { DELETE_COLOR } from "../../../../graphql/mutations/delete/deleteColor"
 

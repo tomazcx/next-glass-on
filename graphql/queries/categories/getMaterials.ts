@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const FORMATS_QUERY = gql`
+export const MATERIALS_QUERY = gql`
     query MyQuery {
-        formats {
+        materials(first:100) {
             name
             id
         }

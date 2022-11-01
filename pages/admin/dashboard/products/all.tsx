@@ -3,7 +3,7 @@ import { useState } from "react"
 import { InputSearch } from "../../../../components/Admin/Form/InputSearch"
 import { ItemProduct } from "../../../../components/Admin/Items/Product"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
-import { PRODUCTS_QUERY } from "../../../../graphql/queries/getProducts"
+import { PRODUCTS_QUERY } from "../../../../graphql/queries/products/getProducts"
 import { DELETE_PRODUCT } from "../../../../graphql/mutations/delete/deleteProduct"
 import Modal from 'react-modal'
 import { ModalProduct } from "../../../../components/Admin/Modals/ModalProduct"

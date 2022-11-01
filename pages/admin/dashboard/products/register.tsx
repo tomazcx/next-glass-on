@@ -6,38 +6,16 @@ import { Select } from "../../../../components/Admin/Form/Select"
 import { TitleForm } from "../../../../components/Admin/Form/TitleForm"
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import { CREATE_PRODUCT } from "../../../../graphql/mutations/create/registerProduct"
-import { COLORS_QUERY } from "../../../../graphql/queries/getColors"
-import { FORMATS_QUERY } from "../../../../graphql/queries/getFormats"
-import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials"
+import { COLORS_QUERY } from "../../../../graphql/queries/categories/getColors"
+import { FORMATS_QUERY } from "../../../../graphql/queries/categories/getFormats"
+import { MATERIALS_QUERY } from "../../../../graphql/queries/categories/getMaterials"
 import 'react-toastify/dist/ReactToastify.css';
-import { PRODUCTS_QUERY } from "../../../../graphql/queries/getProducts"
-import { useDropzone } from 'react-dropzone'
-import { useCallback, useState } from "react"
+import { PRODUCTS_QUERY } from "../../../../graphql/queries/products/getProducts"
 import axios from "axios"
 
 
 const RegisterProducts = () => {
     const { register, handleSubmit } = useForm()
-    const [files, setFiles] = useState([]);
-
-    // const onDrop = useCallback(
-    //     (acceptedFiles : any) => {
-    //       setFiles(
-    //         acceptedFiles.map((file : any) =>
-    //           Object.assign(file, {
-    //             preview: URL.createObjectURL(file)
-    //           })
-    //         )
-    //       );
-
-    //       const form = new FormData();
-
-    //       form.append("fileUpload", acceptedFiles[0]);
-
-
-    //     },
-    //     [setFiles]
-    //   );
 
     const materials = useQuery(MATERIALS_QUERY)
     const formats = useQuery(FORMATS_QUERY)

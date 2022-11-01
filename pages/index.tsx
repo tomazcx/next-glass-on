@@ -14,10 +14,27 @@ import Link from 'next/link'
 import {ProductsHome} from '../components/Home/ProductsHome'
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { GetServerSideProps } from 'next';
+import {apollo_client} from '../clients/apolloClient'
+import { PRODUCTS_MAIN_QUERY } from '../graphql/queries/products/getProductsMain';
 
-const Home = () => {
+interface ProductsInterface{
+  image: {
+    url: string
+  };
+  name: string;
+  price: number;
+  id:string;
+}
 
-  const [sunGlasses, setGlasses] = useState(false)
+interface IndexProps {
+  glasses: ProductsInterface[],
+  sunGlasses: ProductsInterface[]
+}
+
+const Home = ({glasses, sunGlasses} :IndexProps) => {
+
+  const [glassesState, setGlasses] = useState(false)
 
   return (
     <Layout>
@@ -37,16 +54,16 @@ const Home = () => {
             <div className='flex items-center gap-12 w-full justify-center pb-4'>
               <strong
                 className={classNames('uppercase text-2xl font-normal cursor-pointer', {
-                  'border-b border-black': !sunGlasses
+                  'border-b border-black': !glassesState
                 })}
                 onClick={() => setGlasses(false)}>De grau</strong>
 
               <strong className={classNames('uppercase text-2xl font-normal cursor-pointer', {
-                'border-b border-black': sunGlasses
+                'border-b border-black': glassesState
               })}
                 onClick={() => setGlasses(true)}>De sol</strong>
             </div>
-            {sunGlasses ? <ProductsHome img={[sunglass, sunglass, sunglass, sunglass]} /> : <ProductsHome img={[glass, glass, glass, glass]} />}
+            {glassesState ? <ProductsHome products={sunGlasses} /> : <ProductsHome products={glasses} />}
 
             <Link href={'/products'} passHref>
                <a className='text-2xl transition-colors hover:text-gray-700 py-2 border-black '>
@@ -73,6 +90,29 @@ const Home = () => {
       </main>
     </Layout>
   )
+}
+
+export const getServerSideProps:GetServerSideProps = async() => {
+  const glasses = await apollo_client.query({
+    query: PRODUCTS_MAIN_QUERY,
+    variables: {
+      sunLens: false
+    }
+  })
+
+  const sunGlases = await apollo_client.query({
+    query: PRODUCTS_MAIN_QUERY,
+    variables: {
+      sunLens: true
+    }
+  })
+  
+  return{
+    props:{
+      glasses: glasses.data.products,
+      sunGlasses: sunGlases.data.products
+    }
+  }
 }
 
 export default Home

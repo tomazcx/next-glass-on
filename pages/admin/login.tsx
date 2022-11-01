@@ -10,7 +10,7 @@ const Login = () => {
     const router = useRouter()
 
     const verifyLogin = (data: any) => {
-        if (data.user !== "tomazcx" || data.password !== "1234") return setError(true)
+        if (data.user !== process.env.NEXT_PUBLIC_ADMIN_LOGIN || data.password !== process.env.NEXT_PUBLIC_ADMIN_PASSWORD) return setError(true)
 
         const token = uuid()
         setCookie(undefined, 'nextauth-token', token, {

@@ -6,7 +6,7 @@ import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDas
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from "@apollo/client"
 import { REGISTER_COLOR } from "../../../../graphql/mutations/create/registerColor"
-import { COLORS_QUERY } from "../../../../graphql/queries/getColors"
+import { COLORS_QUERY } from "../../../../graphql/queries/categories/getColors"
 
 
 const RegisterColors = () => {

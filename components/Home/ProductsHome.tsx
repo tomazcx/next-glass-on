@@ -1,20 +1,23 @@
 import { StaticImageData } from "next/image";
 import { CardProduct } from "../Cards/CardProduct";
 
-interface ProductsInterface {
-    img: string[] | StaticImageData[];
+interface ProductInterface {
+    image: {
+        url: string
+    };
+    name:string;
+    price:number;
+    id:string;
 }
 
-export const ProductsHome = (props: ProductsInterface) => {
-    
-    let cont = 0
+interface ProductsInterface {
+    products: ProductInterface[];
+}
 
+export const ProductsHome = ({products}: ProductsInterface) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-24 px-12 animate-show-glasses">
-            {props.img.map((img) => {
-                cont++
-                return <CardProduct key={cont} img={img} />
-            })}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-12 animate-show-glasses">
+            {products.map((product : ProductInterface) => <CardProduct key={product.id} product={product} />)}
         </div>
     )
 

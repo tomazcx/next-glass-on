@@ -4,7 +4,7 @@ import { InputSearch } from "../../../../components/Admin/Form/InputSearch"
 import { ItemCategory } from "../../../../components/Admin/Items/Category";
 import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDashboard"
 import { DELETE_MATERIAL } from "../../../../graphql/mutations/delete/deleteMaterial";
-import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials";
+import { MATERIALS_QUERY } from "../../../../graphql/queries/categories/getMaterials";
 import Modal from 'react-modal'
 
 

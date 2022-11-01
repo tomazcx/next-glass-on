@@ -6,7 +6,7 @@ import { LayoutDashboard } from "../../../../components/Admin/Sections/LayoutDas
 import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from "@apollo/client"
 import { REGISTER_MATERIAL } from "../../../../graphql/mutations/create/registerMaterial"
-import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials"
+import { MATERIALS_QUERY } from "../../../../graphql/queries/categories/getMaterials"
 
 const RegisterMaterials = () => {
     const [text, setText] = useState("")
