@@ -11,10 +11,33 @@ import { FORMATS_QUERY } from "../../../../graphql/queries/getFormats"
 import { MATERIALS_QUERY } from "../../../../graphql/queries/getMaterials"
 import 'react-toastify/dist/ReactToastify.css';
 import { PRODUCTS_QUERY } from "../../../../graphql/queries/getProducts"
+import { useDropzone } from 'react-dropzone'
+import { useCallback, useState } from "react"
+import axios from "axios"
 
 
 const RegisterProducts = () => {
-    const {register, handleSubmit} = useForm()
+    const { register, handleSubmit } = useForm()
+    const [files, setFiles] = useState([]);
+
+    // const onDrop = useCallback(
+    //     (acceptedFiles : any) => {
+    //       setFiles(
+    //         acceptedFiles.map((file : any) =>
+    //           Object.assign(file, {
+    //             preview: URL.createObjectURL(file)
+    //           })
+    //         )
+    //       );
+
+    //       const form = new FormData();
+
+    //       form.append("fileUpload", acceptedFiles[0]);
+
+
+    //     },
+    //     [setFiles]
+    //   );
 
     const materials = useQuery(MATERIALS_QUERY)
     const formats = useQuery(FORMATS_QUERY)
@@ -24,11 +47,22 @@ const RegisterProducts = () => {
         onCompleted: () => {
             toast("Produto cadastrado com sucesso!")
         },
-        refetchQueries: [{query: PRODUCTS_QUERY}]
+        refetchQueries: [{ query: PRODUCTS_QUERY }]
     })
 
-    const handleRegister = (data : any) =>{
-        console.log(data)
+    const handleRegister = async(data: any) => {
+        const form = new FormData()
+
+        form.append("fileUpload", data.img[0])
+
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_URI_UPLOAD}`, form, {
+            headers: {
+                Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
+            }
+        })
+
+        const idImg = response.data.id
+
         registerProduct({
             variables: {
                 name: data.name,
@@ -38,7 +72,8 @@ const RegisterProducts = () => {
                 parcels: Number(data.parcels),
                 format: data.format,
                 color: data.color,
-                material: data.material
+                material: data.material,
+                idImg: idImg
             }
         })
     }
@@ -66,8 +101,8 @@ const RegisterProducts = () => {
                     </div>
                     <div className='col-span-12 md:col-span-7 grid grid-cols-12 gap-6'>
                         <Select register={register} text='Cor da armação' id='color' options={colors?.data?.colors} />
-                        <Select register={register}  text='Formato da armação' id='format' options={formats?.data?.formats} />
-                        <Select register={register}  text='Material da armação' id='material' options={materials?.data?.materials} />
+                        <Select register={register} text='Formato da armação' id='format' options={formats?.data?.formats} />
+                        <Select register={register} text='Material da armação' id='material' options={materials?.data?.materials} />
                     </div>
 
                     <hr className='col-span-12' />
@@ -78,14 +113,15 @@ const RegisterProducts = () => {
                     <div className='col-span-12 md:col-span-7 grid grid-cols-12 gap-6'>
                         <div className="flex-col flex gap-3 col-span-12">
                             <label htmlFor="img">Imagem:</label>
-                            <input {...register('img')} type="file" name="img" id="img" className="rounded w-10/12 max-w-[500px]" />
+                            <input required {...register('img')} type="file" name="img" id="img" className="rounded w-10/12 max-w-[500px]" />
                         </div>
                         <div className="flex gap-3 items-center col-span-12 md:col-span-6">
                             <label htmlFor="type">Possui lentes solares?:</label>
                             <input {...register('type')} type="checkbox" name="type" />
                         </div>
-                        
+
                     </div>
+
 
                     <hr className='col-span-12' />
 
@@ -103,7 +139,7 @@ const RegisterProducts = () => {
                     <button type="submit" className="rounded-md bg-gray-800 text-white hover:bg-black transition-colors col-span-12 md:col-span-3 md:col-start-9 py-2">Cadastrar</button>
                 </form>
             </section>
-        </LayoutDashboard>
+        </LayoutDashboard >
 
     )
 }
