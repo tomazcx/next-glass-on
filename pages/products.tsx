@@ -66,7 +66,7 @@ const Products = ({products} : PageInterface) => {
           </div>
 
           <div className="grid grid-cols-1 items-center sm:grid-cols-2 gap-8 lg:grid-cols-4 mr-8  my-8">
-            {products.map((product : ProductInteface) => <CardProduct product={product} />)}
+            {products.map((product : ProductInteface) => <CardProduct key={product.id} product={product} />)}
 
           </div>
 
