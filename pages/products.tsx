@@ -1,13 +1,28 @@
 import { Layout } from "../components/Sections/Layout"
-import glass from '../assets/products/glass1.jpg'
 import { ListBullets, MagnifyingGlass } from "phosphor-react"
 import { CardProduct } from "../components/Cards/CardProduct"
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { SidebarProducts } from "../components/Sidebars/SidebarProducts"
 import Modal from 'react-modal'
 import { SidebarProductsMobile } from "../components/Sidebars/SidebarProductsMobile"
+import { GetServerSideProps } from "next"
+import {apollo_client} from '../clients/apolloClient'
+import { ALL_PRODUCTS_QUERY } from "../graphql/queries/products/getProductsList"
 
-const Products = () => {
+interface ProductInteface{
+  image: {
+    url: string;
+  };
+  name:string;
+  id:string;
+  price:number;
+}
+
+interface PageInterface{
+  products: ProductInteface[]
+}
+
+const Products = ({products} : PageInterface) => {
 
   const [sidebar, setSidebar] = useState(false)
 
@@ -51,18 +66,7 @@ const Products = () => {
           </div>
 
           <div className="grid grid-cols-1 items-center sm:grid-cols-2 gap-8 lg:grid-cols-4  my-8">
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
-            <CardProduct img={glass} />
+            {products.map((product : ProductInteface) => <CardProduct product={product} />)}
 
           </div>
 
@@ -71,6 +75,19 @@ const Products = () => {
       </main>
     </Layout>
   )
+}
+
+export const getServerSideProps : GetServerSideProps  = async() => {
+
+  const products = await apollo_client.query({
+    query: ALL_PRODUCTS_QUERY
+  })
+
+  return {
+    props: {
+      products : products.data.products
+    }
+  }
 }
 
 export default Products

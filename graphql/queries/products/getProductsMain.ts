@@ -12,5 +12,4 @@ export const PRODUCTS_MAIN_QUERY = gql`
         }
     }
 
-
 `

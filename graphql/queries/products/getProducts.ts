@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const PRODUCTS_QUERY = gql`
     query productsQuery {
-        products(first: 1000) {
+        products(first: 100) {
             id
             name
             format {
