@@ -38,6 +38,25 @@ interface ProductData {
 }
 
 const Product = ({ data }: ProductData) => {
+    const { value, setValue } = useContext(CartContext)
+    const [container, setContainer] = useState(false)
+    const [containerToRender, setRender] = useState(false)
+    const [sizeGlasses, setGlases] = useState('Padrão')
+    const [quantityProduct, setProduct] = useState(0)
+    const notify = () => toast('Produto adicionado.');
+    
+    const handleMinusQuantity = () => {
+        let num = quantityProduct
+        if (num !== 0) {
+            num -= 1;
+        }
+        return num
+    }
+
+    const addToCart = (num: number) => {
+        notify();
+        return num += quantityProduct as number
+    }
 
     if (data === null)
         return (
@@ -53,27 +72,6 @@ const Product = ({ data }: ProductData) => {
             </Layout>
         )
 
-    const { value, setValue } = useContext(CartContext)
-    const [container, setContainer] = useState(false)
-    const [containerToRender, setRender] = useState(false)
-    const [sizeGlasses, setGlases] = useState('Padrão')
-    const [quantityProduct, setProduct] = useState(0)
-    const notify = () => toast('Produto adicionado.');
-
-    console.log(data)
-
-    const handleMinusQuantity = () => {
-        let num = quantityProduct
-        if (num !== 0) {
-            num -= 1;
-        }
-        return num
-    }
-
-    const addToCart = (num: number) => {
-        notify();
-        return num += quantityProduct as number
-    }
 
 
 
