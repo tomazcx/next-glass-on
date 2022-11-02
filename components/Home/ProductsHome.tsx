@@ -16,7 +16,7 @@ interface ProductsInterface {
 
 export const ProductsHome = ({products}: ProductsInterface) => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 px-12 animate-show-glasses">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {products.map((product : ProductInterface) => <CardProduct key={product.id} product={product} />)}
         </div>
     )

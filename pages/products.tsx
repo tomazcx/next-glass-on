@@ -65,7 +65,7 @@ const Products = ({products} : PageInterface) => {
 
           </div>
 
-          <div className="grid grid-cols-1 items-center sm:grid-cols-2 gap-8 lg:grid-cols-4 sm:mx-8 md:mr-8 md:ml-0  my-8">
+          <div className="grid grid-cols-1 items-center sm:grid-cols-2 gap-8 lg:grid-cols-4 mx-12 sm:mx-16 md:mr-8 md:ml-0  my-8">
             {products.map((product : ProductInteface) => <CardProduct key={product.id} product={product} />)}
 
           </div>

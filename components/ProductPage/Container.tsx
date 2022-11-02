@@ -11,10 +11,9 @@ export const Container = (props: ContainerInterface) => {
     if (props.type) {
         return (
             <div className="flex flex-col items-center gap-6 w-full">
-                <div className="flex items-center justify-between w-full">
-                    <ArrowLeft size={24} color="#000" className="cursor-pointer" onClick={() => props.fun(false)} />
-                    <label htmlFor="size" className="font-bold">Tamanho</label>
-                    <div></div>
+                <div className="grid grid-cols-12 w-full">
+                    <ArrowLeft size={24} color="#000" className="cursor-pointer col-span-2" onClick={() => props.fun(false)} />
+                    <label htmlFor="size" className="font-bold col-span-8 text-center">Tamanho</label>
                 </div>
 
                 <select name="size" id="size" onChange={e => props.setSize(e.target.value)} className="w-full py-2 px-4 rounded-lg border border-gray-400">
@@ -29,11 +28,10 @@ export const Container = (props: ContainerInterface) => {
     }
 
     return (
-        <div className="flex flex-col gap-6 w-full max-w-[400px]">
-            <div className="flex items-center justify-between w-full">
-                <ArrowLeft size={24} color="#000" className="cursor-pointer" onClick={() => props.fun(false)} />
-                <label htmlFor="size" className="font-bold">Envios e devoluções</label>
-                <div></div>
+        <div className="flex flex-col gap-6 w-full ">
+            <div className="grid grid-cols-12 w-full">
+                <ArrowLeft size={24} color="#000" className="cursor-pointer col-span-2" onClick={() => props.fun(false)} />
+                <label htmlFor="size" className="font-bold text-center col-span-8">Envios e devoluções</label>
             </div>
 
             <span>Data estimada de entrega:</span>

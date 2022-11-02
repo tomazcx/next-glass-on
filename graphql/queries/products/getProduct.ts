@@ -17,7 +17,11 @@ export const PRODUCT_QUERY = gql`
             glassColor {
                 name
             }
+            image{
+                id
+                url
+            }
             parcels
         }
-        }
+    }
 `

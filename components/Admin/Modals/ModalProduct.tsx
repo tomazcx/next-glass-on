@@ -1,14 +1,17 @@
 import { useMutation, useQuery } from "@apollo/client";
+import axios from "axios";
 import { X } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UPDATE_PRODUCT } from "../../../graphql/mutations/update/updateProduct";
+import { UPDATE_PRODUCT_IMAGE } from "../../../graphql/mutations/update/updateProductWithImage";
 import { COLORS_QUERY } from "../../../graphql/queries/categories/getColors";
 import { FORMATS_QUERY } from "../../../graphql/queries/categories/getFormats";
 import { MATERIALS_QUERY } from "../../../graphql/queries/categories/getMaterials";
 import { PRODUCT_QUERY } from "../../../graphql/queries/products/getProduct";
 import { PRODUCTS_QUERY } from "../../../graphql/queries/products/getProducts";
 import { CheckboxEdit } from "../Form/Edit form/CheckboxEdit";
+import { ImageEdit } from "../Form/Edit form/ImageEdit";
 import { InputEdit } from "../Form/Edit form/InputEdit";
 import { SelectEdit } from "../Form/Edit form/SelectEdit";
 import { TextareaEdit } from "../Form/Edit form/TextareaEdit";
@@ -34,29 +37,72 @@ export const ModalProduct = ({id, modalFun, deleteFun} : ModalInterface) => {
     const formats = useQuery(FORMATS_QUERY)
     const materials = useQuery(MATERIALS_QUERY)
 
+    const [updateProductWithIamge] = useMutation(UPDATE_PRODUCT_IMAGE, {
+        onCompleted: () => modalFun(false),
+        refetchQueries: [{query: PRODUCTS_QUERY}]
+    })
+
     const [updateProduct] = useMutation(UPDATE_PRODUCT, {
         onCompleted: () => modalFun(false),
         refetchQueries: [{query: PRODUCTS_QUERY}]
     })
 
-    const handleUpdate = (data : any) => {
-        updateProduct({
-            variables: {
-                id: id,
-                name: data.name,
-                price: Number(data.price),
-                parcels: Number(data.parcels),
-                description: data.description,
-                format: data.format,
-                color: data.color,
-                material: data.material,
-                sunLens: data.sunLens
-            }
-        })
+    const image = data?.product.image
+
+    const handleUpdate = async(data : any, oldImageId : string) => {
+
+        let response:any = {}
+
+        if(data.img[0] !== undefined){
+            const form = new FormData()
+
+            form.append("fileUpload", data.img[0])
+    
+            response = await axios.post(`${process.env.NEXT_PUBLIC_URI_UPLOAD}`, form, {
+                headers: {
+                    Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`
+                }
+            })
+
+            console.log(response.data.id)
+
+            updateProductWithIamge({
+                variables: {
+                    id: id,
+                    name: data.name,
+                    price: Number(data.price),
+                    parcels: Number(data.parcels),
+                    description: data.description,
+                    format: data.format,
+                    color: data.color,
+                    material: data.material,
+                    sunLens: data.sunLens,
+                    idImg: response.data.id,
+                    idImageToDelete: oldImageId
+                }
+            })
+        }else{
+            updateProduct({
+                variables: {
+                    id: id,
+                    name: data.name,
+                    price: Number(data.price),
+                    parcels: Number(data.parcels),
+                    description: data.description,
+                    format: data.format,
+                    color: data.color,
+                    material: data.material,
+                    sunLens: data.sunLens
+                }
+            })
+        }
+        
+
+        
     }
 
     return (
-        <form onSubmit={handleSubmit((data) => handleUpdate(data))} className="bg-gray-100 flex flex-col w-11/12 rounded max-w-[800px] md:p-6 py-4 px-4 md:grid md:grid-cols-12 gap-8 absolute top-[20px] md:top-[50px] transform -translate-x-1/2 left-1/2">
+        <form onSubmit={handleSubmit((data) => handleUpdate(data, image.id))} className="bg-gray-100 text-sm flex flex-col w-11/12 rounded max-w-[800px] md:p-6 py-4 px-4 md:grid md:grid-cols-12 gap-6 absolute top-[10px] md:top-[50px]  transform -translate-x-1/2 left-1/2">
             <div className="flex items-center justify-between col-span-12">
                 <div className='flex gap-2 items-center'>
                     <span className='md:text-lg'>Detalhes do produto</span>
@@ -89,6 +135,10 @@ export const ModalProduct = ({id, modalFun, deleteFun} : ModalInterface) => {
                     <div className='flex flex-col gap-2'>
                         <span className="font-semibold">Descrição:</span>
                         <TextareaEdit register={register} editMode={editMode} id="description" value={data?.product.description} />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <span className="font-semibold">Imagem:</span>
+                        <ImageEdit url={data?.product.image?.url} editMode={editMode} register={register} />
                     </div>
                 </div>
             </div>
