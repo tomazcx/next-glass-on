@@ -40,8 +40,8 @@ const Products = ({products, materials, formats, colors} : PageInterface) => {
   const router = useRouter()
 
   const [sidebar, setSidebar] = useState(false)
-  const [text, setText] = useState(router.query.search?? '')
-  const [selectedOption, setSelected] = useState(router.query.type?? 'all')
+  const [text, setText] = useState(router.query.search as string?? '')
+  const [selectedOption, setSelected] = useState(router.query.type as string?? 'all')
 
   const filteredByCategory = selectedOption !== 'all' ? products.filter((product:ProductInteface) => {
     if(selectedOption == 'sun' && product.sunLens){
