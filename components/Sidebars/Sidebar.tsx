@@ -11,8 +11,8 @@ export const Sidebar = ({ handleSidebar }: SidebarInterface) => {
             <X size={32} color="#000000" onClick={() => handleSidebar(false)} />
             <nav className='flex flex-col gap-6 font-bold'>
                 <Link passHref href={'/products'}><a className='uppercase' onClick={() => handleSidebar(false)}>Todos</a></Link>
-                <Link passHref href={'/products'}><a className='uppercase' onClick={() => handleSidebar(false)}>de Grau</a></Link>
-                <Link passHref href={'/products'}><a className='uppercase' onClick={() => handleSidebar(false)}>de Sol</a></Link>
+                <Link passHref href={{pathname:'/products', query:{type: 'glass'}}}><a className='uppercase' onClick={() => handleSidebar(false)}>de Grau</a></Link>
+                <Link passHref href={{pathname:'/products', query:{type: 'sun'}}}><a className='uppercase' onClick={() => handleSidebar(false)}>de Sol</a></Link>
             </nav>
         </>
     )
