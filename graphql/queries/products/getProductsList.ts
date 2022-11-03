@@ -9,6 +9,7 @@ export const ALL_PRODUCTS_QUERY = gql`
             image {
                 url
             }
+            sunLens
         }
     }
 

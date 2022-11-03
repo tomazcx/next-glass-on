@@ -1,59 +1,36 @@
 import { X } from 'phosphor-react'
 
+import { CategorySidebar } from "./CategorySidebar";
+
+interface CategoriesInterface {
+    name: string;
+    id: string;
+}
+
 interface SidebarInterface {
+    colors: CategoriesInterface[];
+    formats: CategoriesInterface[];
     handleSidebar(value: boolean): void;
+    materials: CategoriesInterface[];
 }
 
 export const SidebarProductsMobile = (props: SidebarInterface) => {
 
     return (
         <>
-            <X size={32} color="#000000" onClick={() => props.handleSidebar(false)} />
-           <ul className='text-xl'>
-                <li>Filtrar por:</li>
-                <li>
-                    <span className="mx-4">Cor</span>
-                    <ul className="mx-8">
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Preto</label>
+            <aside className='text-xl'>
+                <ul>
+                    <li className='text-lg py-4 flex items-center pl-3 justify-between '>
+                        <span>Filtrar por:</span>
+                        <X size={18} color="#000000" onClick={() => props.handleSidebar(false)} />
+                    </li>
+                    <CategorySidebar key={'01'} category={'cor'} array={props.colors} />
+                    <CategorySidebar key={'02'}  category={'formato'} array={props.formats} />
+                    <CategorySidebar key={'03'}  category={'material'} array={props.materials} />
 
-                        </li>
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Outros</label>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <span className="mx-4">Material</span>
-                    <ul className="mx-8">
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Plástico</label>
+                </ul>
 
-                        </li>
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Metal</label>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <span className="mx-4">Formato</span>
-                    <ul className="mx-8">
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Redondo</label>
-
-                        </li>
-                        <li className="flex gap-2 items-center">
-                            <input type="checkbox" name="black-color" id="black-color" className="rounded-md" />
-                            <label htmlFor="black-color">Outros</label>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            </aside>
         </>
     )
 }

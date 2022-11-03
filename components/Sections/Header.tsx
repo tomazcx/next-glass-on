@@ -44,8 +44,8 @@ export const Header = () => {
                         </Link>
                         <div className="hidden md:flex gap-4">
                             <Link href={'/products'}><a className='uppercase hover:text-gray-400 transition-colors'>Todos</a></Link>
-                            <Link href={'/products'}><a className='uppercase hover:text-gray-400 transition-colors'>De grau</a></Link>
-                            <Link href={'/products'}><a className='uppercase hover:text-gray-400 transition-colors'>De sol</a></Link>
+                            <Link href={{pathname:'/products', query:{type: 'glass'}}}><a className='uppercase hover:text-gray-400 transition-colors'>De grau</a></Link>
+                            <Link href={{pathname:'/products', query:{type: 'sun'}}}><a className='uppercase hover:text-gray-400 transition-colors'>De sol</a></Link>
                         </div>
                     </nav>
 
