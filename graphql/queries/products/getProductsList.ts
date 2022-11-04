@@ -9,6 +9,15 @@ export const ALL_PRODUCTS_QUERY = gql`
             image {
                 url
             }
+            material{
+                name
+            }
+            glassColor{
+                name
+            }
+            format{
+                name
+            }
             sunLens
         }
     }

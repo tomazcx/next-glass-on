@@ -21,6 +21,15 @@ interface ProductInteface{
   id:string;
   price:number;
   sunLens:boolean;
+  material: {
+    name: string;
+  };
+  format: {
+    name: string;
+  };
+  glassColor: {
+    name: string;
+  };
 }
 
 interface CategoryInterface{
@@ -35,6 +44,12 @@ interface PageInterface{
   formats: CategoryInterface[]
 }
 
+interface SelectedCategoriesInterface{
+  material:string;
+  format:string;
+  color:string;
+}
+
 const Products = ({products, materials, formats, colors} : PageInterface) => {
 
   const router = useRouter()
@@ -42,8 +57,40 @@ const Products = ({products, materials, formats, colors} : PageInterface) => {
   const [sidebar, setSidebar] = useState(false)
   const [text, setText] = useState(router.query.search as string?? '')
   const [selectedOption, setSelected] = useState(router.query.type as string?? 'all')
+  const [categories, setCategories] = useState<SelectedCategoriesInterface>({
+    material: "",
+    format: "",
+    color: ""
+  })
 
-  const filteredByCategory = selectedOption !== 'all' ? products.filter((product:ProductInteface) => {
+  const filteredByCategory = (categories.material !== "" || categories.format !== "" || categories.color !== "") ? 
+    products.filter((product: ProductInteface) => {
+      if(product.material.name === categories.material){
+        if(product.glassColor.name === categories.color || categories.color === ""){
+          if(product.format.name === categories.color || categories.format === ""){
+            return product
+          }
+        }
+      }
+
+      if(product.format.name === categories.format){
+        if(product.material.name === categories.material || categories.material === ""){
+          if(product.glassColor.name === categories.color || categories.color === ""){
+            return product
+          }
+        }
+      }
+      if(product.glassColor.name === categories.color){
+        if(product.material.name === categories.material || categories.material === ""){
+          if(product.format.name === categories.format || categories.format === ""){
+            return product
+          }
+        }
+      }
+    
+    }) : products
+
+  const filteredByType = selectedOption !== 'all' ? filteredByCategory.filter((product:ProductInteface) => {
     if(selectedOption == 'sun' && product.sunLens){
       return product
     }
@@ -51,9 +98,18 @@ const Products = ({products, materials, formats, colors} : PageInterface) => {
       return product
     }
 
-  }) : products
+  }) : filteredByCategory
 
-  const filteredByText = text.length > 0 ? filteredByCategory.filter((product: ProductInteface) => product.name.toLowerCase().includes(text.toLowerCase())) : filteredByCategory
+  const filteredByText = text.length > 0 ? filteredByType.filter((product: ProductInteface) => product.name.toLowerCase().includes(text.toLowerCase())) : filteredByType
+
+  const handleCategories = (category: string, value:string) => {
+    if(category === 'cor')
+      return setCategories({...categories, color: value})
+    if(category === 'material')
+      return setCategories({...categories, material: value})
+    if(category === 'formato')
+      return setCategories({...categories, format: value})
+  }
 
   return (
     <Layout>
@@ -62,10 +118,10 @@ const Products = ({products, materials, formats, colors} : PageInterface) => {
         ariaHideApp={false}
         className="bg-white max-h-[100vh] top-[60px] overflow-y-auto shadow-2xl absolute left-0 z-50 flex px-8 py-12 flex-col gap-4 w-8/12 h-screen animate-show-sidebar"
       >
-        <SidebarProductsMobile colors={colors} formats={formats} materials={materials} handleSidebar={setSidebar} />
+        <SidebarProductsMobile selectedCategories={categories} setCategories={handleCategories} colors={colors}  formats={formats} materials={materials} handleSidebar={setSidebar} />
       </Modal>
       <main className="md:grid md:grid-cols-5 flex flex-col items-center h-full w-full md:gap-8 mt-20">
-        <SidebarProducts colors={colors} formats={formats} materials={materials} />
+        <SidebarProducts selectedCategories={categories} setCategories={handleCategories} colors={colors} formats={formats} materials={materials} />
         <div className="col-span-4 h-full">
           <div className="flex flex-col sm:flex-row items-center md:justify-end gap-8 px-6 mt-12">
             <div className="flex items-center justify-start w-full sm:w-auto gap-4 md:hidden">

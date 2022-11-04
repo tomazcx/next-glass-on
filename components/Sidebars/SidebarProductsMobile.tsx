@@ -7,11 +7,20 @@ interface CategoriesInterface {
     id: string;
 }
 
+interface SelectedCategories{
+    material:string;
+    color:string;
+    format:string;
+}
+
 interface SidebarInterface {
     colors: CategoriesInterface[];
     formats: CategoriesInterface[];
     handleSidebar(value: boolean): void;
     materials: CategoriesInterface[];
+    setCategories(category: string, value: string):void
+    selectedCategories: SelectedCategories;
+
 }
 
 export const SidebarProductsMobile = (props: SidebarInterface) => {
@@ -24,9 +33,9 @@ export const SidebarProductsMobile = (props: SidebarInterface) => {
                         <span>Filtrar por:</span>
                         <X size={18} color="#000000" onClick={() => props.handleSidebar(false)} />
                     </li>
-                    <CategorySidebar key={'01'} category={'cor'} array={props.colors} />
-                    <CategorySidebar key={'02'}  category={'formato'} array={props.formats} />
-                    <CategorySidebar key={'03'}  category={'material'} array={props.materials} />
+                    <CategorySidebar selectedCategories={props.selectedCategories} key={'01'} setCategories={props.setCategories} categoryName={'cor'} array={props.colors} />
+                <CategorySidebar selectedCategories={props.selectedCategories} key={'02'} setCategories={props.setCategories} categoryName={'formato'} array={props.formats} />
+                <CategorySidebar selectedCategories={props.selectedCategories} key={'03'} setCategories={props.setCategories} categoryName={'material'} array={props.materials} />
 
                 </ul>
 
