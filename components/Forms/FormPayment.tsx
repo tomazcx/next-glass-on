@@ -1,7 +1,6 @@
 import { ClipboardText } from "phosphor-react";
-import { useContext } from "react"
 import { Input } from "../Form/Input"
-import { CartContext } from "../../providers/cartContext";
+import { useForm } from "react-hook-form";
 
 interface FormInterface{
     setForm (value:boolean):void;
@@ -10,7 +9,7 @@ interface FormInterface{
 
 export const FormPayment = (props:FormInterface) => {
 
-    const {value} = useContext(CartContext)
+    const {register, handleSubmit} = useForm()
 
     return (
         <form action="" className="flex flex-col gap-7">
@@ -18,18 +17,18 @@ export const FormPayment = (props:FormInterface) => {
                 <strong className="uppercase font-normal text-xl">dados de pagamento</strong>
                 <ClipboardText size={32} color="#000" className="md:hidden" onClick={() => props.handleSidebar(true)} />
             </div>
-            <Input text="Número do cartão*" type="text" />
+            <Input register={register} id='cardNum' text="Número do cartão*" type="text" />
             <div className="grid grid-cols-2 gap-4">
-                <Input text="Titular*" type="text" />
-                <Input text="CVC*" type="text" />
+                <Input register={register} id='name' text="Titular*" type="text" />
+                <Input register={register} id='cvc' text="CVC*" type="text" />
             </div>
-            <Input text="CPF do titular*" type="text" />
-            <Input text="Vencimento*" type="month" />
+            <Input register={register} id='cpf' text="CPF do titular*" type="text" />
+            <Input register={register} id='expires' text="Vencimento*" type="month" />
             <div className="flex flex-col gap-2">
                 <label htmlFor="parcels">Quantidade de parcelas*</label>
                 <select name="parcels" id="parcels" className="border-black border p-2 rounded-md">
-                    <option value="0">R$ {value*200},00 à vista</option>
-                    <option value="1">2x de R$ {(value*200)/2},00 sem juros</option>
+                    <option value="0">R$ {1*200},00 à vista</option>
+                    <option value="1">2x de R$ {(1*200)/2},00 sem juros</option>
                 </select>
             </div>
 

@@ -1,8 +1,7 @@
-import { useContext, useState, useEffect } from "react"
+import { useState } from "react"
 import axios from "axios"
 import Link from "next/link"
 import classNames from "classnames"
-import { CartContext } from "../providers/cartContext"
 import { FormAdress } from "../components/Forms/FormAddress"
 import { FormPayment } from "../components/Forms/FormPayment"
 import { ProductPayment } from "../components/Cards/ProductPayment"
@@ -12,7 +11,6 @@ import { SidebarPayment } from "../components/Sidebars/SidebarPayment"
 
 const Payment = () => {
 
-  const { value } = useContext(CartContext)
   const [sidebar, setSidebar] = useState(false)
   const [cepText, setCEP] = useState('')
   const [data, setData] = useState({})
@@ -58,7 +56,7 @@ const Payment = () => {
             <ul className="flex flex-col gap-4">
               <li className="flex items-center justify-between">
                 <span className="font-bold">Subtotal</span>
-                <span>R$ {value * 200}.00</span>
+                <span>R$ {1 * 200}.00</span>
               </li>
               <li className="flex items-center justify-between">
                 <span className="font-bold">Valor do frete</span>
@@ -66,7 +64,7 @@ const Payment = () => {
               </li>
               <li className="flex items-center justify-between">
                 <span className="font-bold">TOTAL</span>
-                <span>R$ {value * 200}.00</span>
+                <span>R$ {1 * 200}.00</span>
               </li>
             </ul>
             <Link href={'/cart'} passHref ><a className="rounded-md bg-gray-800 hover:bg-gray-700 transition-colors py-2 text-center text-white">Voltar para o carrinho</a></Link>

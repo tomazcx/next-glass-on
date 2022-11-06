@@ -1,6 +1,5 @@
 import { Minus, Plus } from "phosphor-react";
 import { useContext } from "react";
-import { CartContext } from "../../providers/cartContext";
 import Image, { StaticImageData } from "next/image";
 
 interface ProductInterface {
@@ -10,10 +9,8 @@ interface ProductInterface {
 
 export const CartPageProduct = (props: ProductInterface) => {
 
-    const { value, setValue } = useContext(CartContext)
-
     const handleMinusQuantity = () => {
-        let num = value
+        let num = 1
 
         if (num > 0) {
             num -= 1
@@ -22,7 +19,7 @@ export const CartPageProduct = (props: ProductInterface) => {
     }
 
     const handlePlusQuantity = () => {
-        let num = value
+        let num = 1
         return num += 1 as number
     }
 
@@ -39,9 +36,9 @@ export const CartPageProduct = (props: ProductInterface) => {
                 </ul>
             </div>
             <div className="border flex justify-between items-center px-4 py-2 rounded">
-                <Minus className="cursor-pointer" color='#000' size={20} onClick={() => setValue(handleMinusQuantity())} />
-                <span>{value}</span>
-                <Plus className="cursor-pointer" color='#000' size={20} onClick={() => setValue(handlePlusQuantity())} />
+                <Minus className="cursor-pointer" color='#000' size={20}  />
+                <span>{1}</span>
+                <Plus className="cursor-pointer" color='#000' size={20}  />
             </div>
         </div>
     )

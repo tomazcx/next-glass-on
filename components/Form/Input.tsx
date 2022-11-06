@@ -7,6 +7,8 @@ interface InputProps {
     value?: string;
     funChange? (value: string):void;
     funFetch? ():void;
+    register:any;
+    id: string;
 }
 
 
@@ -25,21 +27,19 @@ export const Input = (props: InputProps) => {
     return (
         <div className="flex flex-col w-full relative z-0">
             <span
-                className={classNames('relative z-0 transition-all', {
-                    'top-5' : !focus,
-                    'text-sm top-0' : focus || props.type==='date' ||  props.type==='month'  || (props.value !== '' && props.value !== undefined )
-                })}
+                className="relative z-0 transition-all"
             >{props.text}</span>
             <input 
             type={props.type} 
             value={props.value} 
             className="border-b w-full outline-none relative z-10 bg-transparent border-black" 
-            onChange={(e) => {
-                if(props.funChange !== undefined){
-                    props.funChange(e.target.value)
-                }
-                setValue(e.target.value)
-            }} 
+            {...props.register(props.id)}
+            // onChange={(e) => {
+            //     if(props.funChange !== undefined){
+            //         props.funChange(e.target.value)
+            //     }
+            //     setValue(e.target.value)
+            // }} 
             onFocus={() => setFocus(true)}  
             onBlur={() => {
 

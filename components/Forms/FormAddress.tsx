@@ -1,4 +1,5 @@
 import { ClipboardText } from "phosphor-react"
+import { useForm } from "react-hook-form";
 import { Input } from "../Form/Input"
 
 interface FormInterface {
@@ -12,6 +13,9 @@ interface FormInterface {
 
 
 export const FormAdress = (props: FormInterface) => {
+
+    const {register, handleSubmit} = useForm()
+
     return (
         <form action="" className="flex flex-col gap-7">
             <div className="flex justify-between items-center w-full">
@@ -20,29 +24,29 @@ export const FormAdress = (props: FormInterface) => {
             </div>
 
             <div className="grid items-end  grid-cols-2 gap-4">
-                <Input text="Nome*" type="text" />
-                <Input text="Sobrenome*" type="text" />
+                <Input register={register} id='name' text="Nome*" type="text" />
+                <Input register={register} id='surname' text="Sobrenome*" type="text" />
             </div>
-            <Input text="Email*" type="email" />
-            <Input text="Data de nascimento*" type="date" />
+            <Input register={register} id='email' text="Email*" type="email" />
+            <Input register={register} id='birthDate' text="Data de nascimento*" type="date" />
             <div className="grid items-end  grid-cols-2 gap-4">
-                <Input text="CPF ou CNPJ*" type="text" />
-                <Input text="Telefone*" type="text" />
+                <Input register={register} id='cpf' text="CPF ou CNPJ*" type="text" />
+                <Input register={register} id='phoneNumber' text="Telefone*" type="text" />
             </div>
             <div className="flex flex-col">
-                <Input text="CEP*" type="text" funChange={props.setCEP} funFetch={props.fetchData} />
+                <Input register={register} id='cep' text="CEP*" type="text" funChange={props.setCEP} funFetch={props.fetchData} />
                 <span className="text-gray-500">Esqueceu o cep? <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target={'_blank'} rel='nofollow, external, noopener, noreferrer' className="hover:text-gray-600 transition-colors border-gray-600 border-b">Calcule-o</a> </span>
                 {props.error ? <span className="text-red-400 mt-2">Insira um CEP válido </span> : <></>}
             </div>
-            <Input text="Bairro*" type="text" value={props.data?.bairro ?? ''} />
+            <Input register={register} id='district' text="Bairro*" type="text" value={props.data?.bairro ?? ''} />
             <div className="grid items-end grid-cols-2 gap-4">
-                <Input text="Rua*" type="text" value={props.data?.logradouro ?? ''} />
-                <Input text="Número*" type="text" />
+                <Input register={register} id='street' text="Rua*" type="text" value={props.data?.logradouro ?? ''} />
+                <Input register={register} id='number' text="Número*" type="text" />
             </div>
-            <Input text="Complemento - Opcional" type="text" />
-            <Input text="Edifício, Bloco, Apartamento - Opcional" type="text" />
-            <Input text="Cidade*" type="text" value={props.data?.localidade ?? ''} />
-            <Input text="Estado*" type="text" value={props.data?.uf ?? ''} />
+            <Input register={register} id='complement' text="Complemento - Opcional" type="text" />
+            <Input register={register} id='building' text="Edifício, Bloco, Apartamento - Opcional" type="text" />
+            <Input register={register} id='city' text="Cidade*" type="text" value={props.data?.localidade ?? ''} />
+            <Input register={register} id='state' text="Estado*" type="text" value={props.data?.uf ?? ''} />
 
             <button onClick={() => props.setForm(false)} className="text-center text-white bg-gray-800 rounded-md py-2 hover:bg-gray-700 transition-colors">Prosseguir para o pagamento</button>
             <span className="text-gray-500">Ao prosseguir, confirmo e li e compreendi a <span className="underline cursor-pointer">Política de Privacidade</span>. </span>

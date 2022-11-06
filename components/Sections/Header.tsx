@@ -1,4 +1,4 @@
-import { User, List, ShoppingCartSimple, X, MagnifyingGlass } from 'phosphor-react'
+import { User, List, ShoppingCartSimple, MagnifyingGlass } from 'phosphor-react'
 import { useState } from 'react'
 import { Sidebar } from '../Sidebars/Sidebar'
 import { LoginModal } from '../Modals/LoginModal'

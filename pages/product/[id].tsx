@@ -3,7 +3,6 @@ import { ArrowRight, Eyeglasses, Minus, Plus, Truck } from "phosphor-react"
 import { useContext, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { Layout } from "../../components/Sections/Layout";
-import { CartContext } from "../../providers/cartContext";
 import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../../components/ProductPage/Container";
 import React from "react";
@@ -12,6 +11,8 @@ import { GetServerSideProps } from "next";
 import notFound from '../../assets/products/notfound.svg'
 import Link from 'next/link'
 import { PRODUCT_QUERY } from "../../graphql/queries/products/getProduct"
+import { parseCookies } from "nookies";
+import classNames from "classnames";
 
 interface ProductData {
     data: {
@@ -38,7 +39,7 @@ interface ProductData {
 }
 
 const Product = ({ data }: ProductData) => {
-    const { value, setValue } = useContext(CartContext)
+    const cookies = parseCookies()
     const [container, setContainer] = useState(false)
     const [containerToRender, setRender] = useState(false)
     const [sizeGlasses, setGlases] = useState('Padrão')
@@ -118,8 +119,13 @@ const Product = ({ data }: ProductData) => {
                                     <Plus size={20} color="#000" className="cursor-pointer" onClick={() => setProduct(prevState => prevState += 1)} />
                                 </div>
                                 <button
-                                    onClick={() => setValue(addToCart(value))}
-                                    className="text-white text-sm bg-black rounded-lg hover:bg-gray-900 transition-colors p-4">Adicionar ao carrinho</button>
+                                    
+                                    className={classNames("text-white text-sm rounded-lg transition-colors p-4", {
+                                        'bg-gray-700 cursor-not-allowed' : cookies['client-auth'] === undefined,
+                                        'bg-black hover:bg-gray-900': cookies['client-auth'] !== undefined
+                                    })}>
+                                        {cookies['client-auth'] !== undefined ? 'Adicionar ao carrinho' : 'Você precisa estar logado para comprar'}
+                                    </button>
                             </div>
                             <ToastContainer autoClose={500} pauseOnHover={false} hideProgressBar={true} />
                         </div>
