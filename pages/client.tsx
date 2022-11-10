@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { destroyCookie, parseCookies } from "nookies"
 import { ListDashes, UserCircle } from "phosphor-react"
 import { useEffect, useState } from "react"
@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form"
 import Modal from 'react-modal'
 import { useRouter } from "next/router"
 import { SidebarClient } from "../components/Sidebars/SidebarClient"
+import { UPDATE_CLIENT } from "../graphql/mutations/update/updateClient"
+import { toast } from "react-toastify"
 
 
 
@@ -22,6 +24,10 @@ const Client = () => {
     const { register, handleSubmit } = useForm()
     const [modal, setModal] = useState(false)
     const [sidebar, setSidebar] = useState(false)
+    const [updateClient] = useMutation(UPDATE_CLIENT, {
+        onCompleted: () => toast("Dados atualizados com sucesso!"),
+        refetchQueries: [{query: CLIENT_QUERY, variables: {id:cookies['client-auth']}}]
+    })
 
 
     const [cookiesUnset, setCookies] = useState(false)
@@ -33,7 +39,11 @@ const Client = () => {
     }
 
     const SubmitEdit = (data: any) => {
-        console.log(data)
+        updateClient({
+            variables: {
+                
+            }
+        })
     }
 
     const { data } = useQuery(CLIENT_QUERY, {
