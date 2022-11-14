@@ -51,7 +51,8 @@ export const FormEdit = ({client, setSidebar} : DataInterface) => {
                 email: data.email === "" ? client.email : data.email,
                 name: data.name === "" ? client.name : data.name,
                 street: data.street === "" ? client.street : data.street,
-                building: data.building === "" ? client.building : data.building
+                building: data.building === "" ? client.building : data.building,
+                state: data.state === "" ? client.state : data.state,
             }
         })
     }
