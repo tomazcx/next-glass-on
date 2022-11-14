@@ -14,6 +14,7 @@ export const CLIENT_QUERY = gql`
             district
             houseNum
             street
+            state
         }
     }
 `
