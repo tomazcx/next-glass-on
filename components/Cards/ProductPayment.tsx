@@ -1,16 +1,30 @@
-import Image from 'next/image'
-import { useContext } from 'react'
-import glass from '../../assets/products/glass1.jpg'
 
-export const ProductPayment = () =>{
+interface ProductData {
+    data: {
+        id:string
+        quantity: number
+        product: {
+            name: string;
+            price: number;
+            image: {
+                url: string;
+            }
+        }
+    }
+}
 
-    return(
+export const ProductPayment = ({ data }: ProductData) => {
+
+    return (
         <div className='grid grid-cols-2 md:flex gap-4 border-b border-black pb-4'>
-            <Image src={glass} alt="Product image" width={150} height={150} className="mx-auto md:mx-0" />
-            <div className='flex flex-col text-sm md:text-base'>
-                <strong className='text-sm md:text-lg font-normal'>Clubmaster Optics</strong>
-                <span>asasdasd</span>
-                <span className="font-bold">R$ {1*200}.00</span>
+
+            <div className="bg-gray-300 h-[8rem] flex flex-col justify-center items-center">
+                <img src={data.product.image.url} alt="Product image" width={150} height={150} />
+            </div>
+            <div className='flex flex-col text-sm md:text-base gap-2'>
+                <strong className='text-sm md:text-lg font-normal'>{data.product.name}</strong>
+                <span>Quantidade: {data.quantity}</span>
+                <span className="font-bold">R$ {data.quantity * data.product.price}.00</span>
             </div>
         </div>
     )

@@ -9,12 +9,6 @@ import { AUTH_QUERY } from "../../graphql/queries/client/getAuth";
 import { CLIENT_MODAL_QUERY } from "../../graphql/queries/client/getInfoModal";
 import Modal from 'react-modal'
 
-
-interface FormValues {
-    email: string;
-    password: string;
-}
-
 interface ClientInterface {
     name?: string;
     email?: string;

@@ -1,15 +1,62 @@
 import { ClipboardText } from "phosphor-react";
 import { Input } from "../Form/Input"
 import { useForm } from "react-hook-form";
+import { useMutation, useQuery } from "@apollo/client";
+import { REGISTER_SELL } from "../../graphql/mutations/create/registerSell";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
+import { FormEvent } from "react";
+import { GET_SELLS } from "../../graphql/queries/sells/getSells";
+import { CART_QUERY } from "../../graphql/queries/cart/getProductsCart";
+import { CART_MODAL_QUERY } from "../../graphql/queries/cart/getCartModal";
+
+interface ProductData {
+    id:string
+    quantity: number
+    product: {
+      name: string;
+      price: number;
+      image: {
+        url: string;
+      }
+    }
+  }
 
 interface FormInterface{
     setForm (value:boolean):void;
     handleSidebar(value: boolean): void;
+    cart: ProductData[]
 }
 
 export const FormPayment = (props:FormInterface) => {
 
-    const {register, handleSubmit} = useForm()
+    const router = useRouter()
+    const cookies = parseCookies()
+    const {register} = useForm()
+    const [registerSell] = useMutation(REGISTER_SELL, {
+        onCompleted:() => router.push("/finalized"),
+        refetchQueries: [{query:GET_SELLS, variables: {id:cookies['client-auth']}}, { query: CART_MODAL_QUERY, variables: { id: cookies['client-auth'] } }, { query: CART_QUERY, variables: { id: cookies['client-auth'] } }]
+    })
+    
+    const handleFinishSell = (e: FormEvent) => {
+        e.preventDefault()
+
+        let products = ''
+        let value = 0
+
+        props.cart.forEach((cartProduct : ProductData) => {
+            products += `${cartProduct.product.name} ${cartProduct.quantity}x - `
+            value += cartProduct.quantity * cartProduct.product.price
+        })
+
+        registerSell({
+            variables: {
+                id: cookies['client-auth'],
+                products: products,
+                value: value
+            }
+        })
+    }
 
     return (
         <form action="" className="flex flex-col gap-7">
@@ -32,7 +79,7 @@ export const FormPayment = (props:FormInterface) => {
                 </select>
             </div>
 
-            <button className="rounded-md bg-gray-800 hover:bg-gray-700 transition-colors text-white text-center py-2 w-48">Concluir pagamento</button>
+            <button onClick={(e : FormEvent) => handleFinishSell(e)} className="rounded-md bg-gray-800 hover:bg-gray-700 transition-colors text-white text-center py-2 w-48">Concluir pagamento</button>
             <span onClick={() => props.setForm(true)} className="text-gray-500 underline cursor-pointer">Retornar para os dados de entrega.</span>
 
         </form>

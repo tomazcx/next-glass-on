@@ -18,7 +18,6 @@ export const Container = (props: ContainerInterface) => {
 
                 <select name="size" id="size" onChange={e => props.setSize(e.target.value)} className="w-full py-2 px-4 rounded-lg border border-gray-400">
                     <option value="Padrão">Padrão</option>
-                    <option value="Pequeno">Pequeno</option>
                 </select>
 
                 <span className="font-bold">Não tem certeza?</span>

@@ -31,24 +31,10 @@ export const Input = (props: InputProps) => {
             >{props.text}</span>
             <input 
             type={props.type} 
-            value={props.value} 
+            defaultValue={props.value} 
             className="border-b w-full outline-none relative z-10 bg-transparent border-black" 
             {...props.register(props.id)}
-            // onChange={(e) => {
-            //     if(props.funChange !== undefined){
-            //         props.funChange(e.target.value)
-            //     }
-            //     setValue(e.target.value)
-            // }} 
-            onFocus={() => setFocus(true)}  
-            onBlur={() => {
-
-                if(props.funFetch !== undefined){
-                    props.funFetch()
-                }
-
-                handleFocusOut()
-                }}  />
+              />
         </div >
     )
 

@@ -64,7 +64,7 @@ export const ModalProduct = ({id, modalFun, deleteFun} : ModalInterface) => {
                 }
             })
 
-            console.log(response.data.id)
+            
 
             updateProductWithIamge({
                 variables: {
@@ -82,6 +82,7 @@ export const ModalProduct = ({id, modalFun, deleteFun} : ModalInterface) => {
                 }
             })
         }else{
+            console.log(data)
             updateProduct({
                 variables: {
                     id: id,

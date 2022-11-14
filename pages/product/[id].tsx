@@ -1,19 +1,23 @@
 import Image from "next/image";
 import { ArrowRight, Eyeglasses, Minus, Plus, Truck } from "phosphor-react"
-import { useContext, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { useState } from "react";
 import { Layout } from "../../components/Sections/Layout";
-import 'react-toastify/dist/ReactToastify.css';
 import { Container } from "../../components/ProductPage/Container";
 import React from "react";
 import { apollo_client } from '../../clients/apolloClient'
 import { GetServerSideProps } from "next";
-import notFound from '../../assets/products/notfound.svg'
-import Link from 'next/link'
 import { PRODUCT_QUERY } from "../../graphql/queries/products/getProduct"
 import { parseCookies } from "nookies";
 import classNames from "classnames";
 import { NotFound } from "../../components/Sections/NotFound";
+import { useMutation } from "@apollo/client";
+import { CREATE_CART_PRODUCT } from "../../graphql/mutations/create/registerCartProduct";
+import { useRouter } from "next/router";
+import { CART_QUERY } from "../../graphql/queries/cart/getProductsCart";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { CART_MODAL_QUERY } from "../../graphql/queries/cart/getCartModal";
+
 
 interface ProductData {
     data: {
@@ -40,33 +44,43 @@ interface ProductData {
 }
 
 const Product = ({ data }: ProductData) => {
+
+    const router = useRouter()
     const cookies = parseCookies()
+
     const [container, setContainer] = useState(false)
     const [containerToRender, setRender] = useState(false)
     const [sizeGlasses, setGlases] = useState('Padrão')
     const [quantityProduct, setProduct] = useState(0)
-    const notify = () => toast('Produto adicionado.');
-    
+    const [createCartProduct] = useMutation(CREATE_CART_PRODUCT, {
+        onCompleted: () => toast("Produto adicionado ao carrinho!"),
+        refetchQueries: [{ query: CART_MODAL_QUERY, variables: { id: cookies['client-auth'] } }, { query: CART_QUERY, variables: { id: cookies['client-auth'] } }]
+    })
+
     const handleMinusQuantity = () => {
         let num = quantityProduct
-        if (num !== 0) {
+        if (quantityProduct !== 0) {
             num -= 1;
         }
         return num
     }
 
-    const addToCart = (num: number) => {
-        notify();
-        return num += quantityProduct as number
+    const handleAddProduct = () => {
+        createCartProduct({
+            variables: {
+                quantity: quantityProduct,
+                idClient: cookies['client-auth'],
+                idProduct: data.id
+            }
+        })
+
     }
 
-    if (data === null)
-        return (
-            <NotFound />
-        )
+    if (data === null) return <NotFound />
 
     return (
         <Layout>
+            <ToastContainer autoClose={500} pauseOnHover={false} hideProgressBar={true} />
             <main className="flex flex-col my-12 w-11/12 max-w-[1200px] mx-auto mt-28">
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-12 py-8 border-b border-gray-400">
                     <div className="flex items-center flex-col justify-center bg-gray-300 lg:min-h-[30rem]">
@@ -100,7 +114,7 @@ const Product = ({ data }: ProductData) => {
                                 <Truck size={24} color="#292929" />
                                 <span>Frete grátis para todo Brasil</span>
                             </div>
-                            
+
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="bg-gray-200 flex items-center rounded-lg justify-between p-4">
                                     <Minus size={20} color="#000" className="cursor-pointer" onClick={(() => setProduct(handleMinusQuantity))} />
@@ -108,15 +122,16 @@ const Product = ({ data }: ProductData) => {
                                     <Plus size={20} color="#000" className="cursor-pointer" onClick={() => setProduct(prevState => prevState += 1)} />
                                 </div>
                                 <button
-                                    
-                                    className={classNames("text-white text-sm rounded-lg transition-colors p-4", {
-                                        'bg-gray-700 cursor-not-allowed' : cookies['client-auth'] === undefined,
-                                        'bg-black hover:bg-gray-900': cookies['client-auth'] !== undefined
+                                    onClick={() => {
+                                        if (cookies['client-auth'] !== undefined) handleAddProduct()
+                                    }}
+                                    className={classNames("text-white text-sm rounded-lg p-4", {
+                                        'bg-gray-700 cursor-not-allowed': cookies['client-auth'] === undefined || quantityProduct === 0,
+                                        'bg-black hover:bg-gray-900 transition-colors': cookies['client-auth'] !== undefined && quantityProduct > 0
                                     })}>
-                                        {cookies['client-auth'] !== undefined ? 'Adicionar ao carrinho' : 'Você precisa estar logado para comprar'}
-                                    </button>
+                                    {cookies['client-auth'] !== undefined ? 'Adicionar ao carrinho' : 'Você precisa estar logado para comprar'}
+                                </button>
                             </div>
-                            <ToastContainer autoClose={500} pauseOnHover={false} hideProgressBar={true} />
                         </div>
 
                     </div>
@@ -163,8 +178,6 @@ const Product = ({ data }: ProductData) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
-    context.res.setHeader('Cache-Control', 's-maxage=20, stale-while-revalidate')
 
     const productData = await apollo_client.query({
         query: PRODUCT_QUERY,

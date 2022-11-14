@@ -2,9 +2,11 @@ import { useMutation } from "@apollo/client"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { apollo_client } from "../clients/apolloClient"
 import { Input } from "../components/Form/Input"
 import { Layout } from "../components/Sections/Layout"
 import { CREATE_CLIENT } from "../graphql/mutations/create/registerClient"
+import { CHECK_EMAIL } from "../graphql/queries/client/checkEmail"
 
 const Register = () => {
 
@@ -16,19 +18,33 @@ const Register = () => {
     onCompleted: () => router.push("/")
   })
 
-  const handleRegister = (data: any) => {
+  const handleRegister = async(data: any) => {
 
     try {
       if (data.password === data.passwordTwo) {
-        const name = data.name + data.surname
-        registerClient({
+        const name = data.name + " " +  data.surname
+
+        const client  = await apollo_client.query({
+          query: CHECK_EMAIL,
           variables: {
-            email: data.email,
-            birthDate: data.birthDate,
-            password: data.password,
-            name: name
+            email: data.email
           }
         })
+        console.log(client)
+
+        if(client.data.client === null){
+
+          registerClient({
+            variables: {
+              email: data.email,
+              birthDate: data.birthDate,
+              password: data.password,
+              name: name
+            }
+          })
+        }else{
+          throw new Error
+        }
 
       } else {
 
@@ -58,7 +74,7 @@ const Register = () => {
 
           <div className="flex flex-col md:flex-row items-center gap-8">
           <button className="bg-gray-800 rounded-lg px-4 py-2 w-full md:w-36 text-white hover:bg-gray-700 transition-colors">Cadastrar-se</button>
-          {error ? <span className="text-red-400">Senhas não coincidem</span> : <></>}
+          {error ? <span className="text-red-400">Informações inválidas</span> : <></>}
           </div>
         </form>
 
