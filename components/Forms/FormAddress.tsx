@@ -54,7 +54,7 @@ export const FormAdress = (props: FormInterface) => {
                             <TitleForm text='Informações pessoais' />
                             <span>Nome: {data?.client.name}</span>
                             <span>Email: {data?.client.email}</span>
-                            <span>CPF: {data?.client.cpf}</span>
+                            <span>CPF: {data?.client.cpf?? "Não definido"}</span>
                             <span>Data de nascimento: {data?.client.birthDate}</span>
                         </div>
 

@@ -13,7 +13,7 @@ interface SidebarInterface{
 export const SidebarClient = ({ handleSidebar, setModal, name, showSells, setDisplay }: SidebarInterface) => {
     return (
         <>
-            <X size={32} color="#000000" onClick={() => handleSidebar(false)} className='cursor-pointer' />
+            <X size={32} color="#000000" onClick={() => handleSidebar(false)} className='cursor-pointer ml-4' />
             <div className="flex flex-col items-center">
                 <UserCircle size={84} color='#242424' />
                 <span className='text-lg'>{name}</span>

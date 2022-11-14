@@ -61,14 +61,14 @@ const Register = () => {
         <form onSubmit={handleSubmit(data => handleRegister(data))} className="flex flex-col gap-7 w-11/12 max-w-[600px]">
           <h1 className="text-3xl">Cadastre sua conta</h1>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio officia corrupti enim quam nesciunt. Ut labore magni quas repellendus at veritatis ab in placeat aut, eius voluptatum? Dicta, id rerum!</p>
-          <Input register={register} id="name" text="Primeiro nome*" type="text" />
-          <Input register={register} id="surname" text="Sobrenome*" type="text" />
-          <Input register={register} id="email" text="Email*" type="email" />
-          <Input register={register} id="birthDate" text="Data de nascimento*" type="date" />
+          <Input register={register} required={true} id="name" text="Primeiro nome*" type="text" />
+          <Input register={register} required={true} id="surname" text="Sobrenome*" type="text" />
+          <Input register={register} required={true} id="email" text="Email*" type="email" />
+          <Input register={register} required={true} id="birthDate" text="Data de nascimento*" type="date" />
 
           <div className="grid grid-cols-2 gap-4">
-            <Input register={register} id="password" text="Senha*" type="password" />
-            <Input register={register} id="passwordTwo" text="Repetir senha*" type="password" />
+            <Input required={true}  register={register} id="password" text="Senha*" type="password" />
+            <Input required={true}  register={register} id="passwordTwo" text="Repetir senha*" type="password" />
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-8">

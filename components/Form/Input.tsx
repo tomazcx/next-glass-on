@@ -9,6 +9,7 @@ interface InputProps {
     funFetch? ():void;
     register:any;
     id: string;
+    required?: boolean;
 }
 
 
@@ -31,6 +32,7 @@ export const Input = (props: InputProps) => {
             >{props.text}</span>
             <input 
             type={props.type} 
+            required={props.required?? false}
             defaultValue={props.value} 
             className="border-b w-full outline-none relative z-10 bg-transparent border-black" 
             {...props.register(props.id)}
