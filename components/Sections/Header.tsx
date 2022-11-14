@@ -71,7 +71,7 @@ export const Header = () => {
                                 setSearch(false)
                                 setLogin(prevState => !prevState)
                             }} />
-                        {loginModal ? <LoginModal /> : <></>}
+                        {loginModal ? <LoginModal closeFun={setLogin} /> : <></>}
                     </div>
 
                     <div className="flex md:hidden items-center gap-4 ">
@@ -100,7 +100,7 @@ export const Header = () => {
                                 setSidebar(false)
 
                             }} />
-                        {loginModal ? <LoginModal /> : <></>}
+                        {loginModal ? <LoginModal closeFun={setLogin} /> : <></>}
                     </div>
                 </div>
                 {search ? <HeaderSearch close={setSearch}/> : <></>}

@@ -75,7 +75,7 @@ const Cart = () => {
                         <span>Carrinho</span>
                         <ShoppingCartSimple size={32} color="#000" className='cursor-pointer' />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                    <div className="flex flex-col md:grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
                         <div className="col-span-2 flex flex-col items-center gap-4">
                             {data?.cartProducts.length > 0 ? data?.cartProducts.map((cartProduct: ProductInterface) => {
                                 totalPrice += cartProduct.product.price * cartProduct.quantity
@@ -84,8 +84,8 @@ const Cart = () => {
                             ) : <span className="text-lg">Seu carrinho está vazio.</span>}
                         </div>
 
-                        <div className="w-full  flex flex-col gap-8 pl-6 ">
-                            <div className="flex w-full flex-col gap-6 pl-6">
+                        <div className="w-full flex flex-col gap-8 ">
+                            <div className="flex w-full flex-col gap-6 md:pl-6">
                                 <strong className="font-normal text-xl uppercase mb-8">Resumo do pedido</strong>
                                 <div className="flex justify-between items-center w-full border-b border-gray-700 pb-2">
                                     <span>Subtotal</span>
@@ -106,7 +106,7 @@ const Cart = () => {
                                     "pointer-events-none bg-gray-400": data?.cartProducts.length <= 0
                                 })}>Finalizar Agora</a></Link>
                             </div>
-                            <div className="pl-6 flex flex-col gap-2">
+                            <div className="md:pl-6 flex flex-col gap-2">
                                 <span>Calcular valor de entrega</span>
                                 <div className="flex items-center gap-4 flex-col md:flex-row">
                                     <input onChange={e => setCEP(e.target.value)} type="text" className='bg-gray-200 py-1 w-full px-2 rounded' />

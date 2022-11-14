@@ -14,7 +14,7 @@ interface ClientInterface {
     birthDate?: string;
 }
 
-export const LoginModal = () => {
+export const LoginModal = ({closeFun} : {closeFun(value:boolean):void}) => {
 
     const cookies = parseCookies()
     const { register, handleSubmit } = useForm()
@@ -45,6 +45,7 @@ export const LoginModal = () => {
             maxAge: 60 * 60 * 8 //8 hours
         })
         Router.push("/")
+        closeFun(false)
     }
 
 
