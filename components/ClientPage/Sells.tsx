@@ -39,7 +39,7 @@ export const Sells = ({setSidebar} : SellsInterface) => {
             </div>
             <div className="flex flex-col gap-2">
                 {data?.sells.map((sell: SellInterface) => 
-                   <ItemSell sell={sell} />
+                   <ItemSell key={sell.createdAt} sell={sell} />
                 )}
 
             </div>
