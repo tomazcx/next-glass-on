@@ -66,13 +66,16 @@ const Product = ({ data }: ProductData) => {
     }
 
     const handleAddProduct = () => {
-        createCartProduct({
-            variables: {
-                quantity: quantityProduct,
-                idClient: cookies['client-auth'],
-                idProduct: data.id
-            }
-        })
+        if(quantityProduct > 0){
+
+            createCartProduct({
+                variables: {
+                    quantity: quantityProduct,
+                    idClient: cookies['client-auth'],
+                    idProduct: data.id
+                }
+            })
+        }
 
     }
 
