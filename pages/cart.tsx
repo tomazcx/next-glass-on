@@ -56,7 +56,7 @@ const Cart = () => {
     if (cookiesUnset) return <NotFound />
 
     const calculateDelivery = async () => {
-        const result = await axios.get(`http://viacep.com.br/ws/${cep}/json/`)
+        const result = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
 
         return setAddress({
             active: true,
