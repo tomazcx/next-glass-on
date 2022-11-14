@@ -30,7 +30,6 @@ const Register = () => {
             email: data.email
           }
         })
-        console.log(client)
 
         if(client.data.client === null){
 
